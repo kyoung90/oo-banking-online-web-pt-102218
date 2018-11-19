@@ -13,8 +13,10 @@ class Transfer
   end 
   
   def execute_transaction
-    self.sender.balance -= @amount
-    self.receiver.balance += @amount
-    @status = "complete"
+    if @status == "pending" && valid?
+      self.sender.balance -= @amount
+      self.receiver.balance += @amount
+      @status = "complete"
+    end
   end 
 end
